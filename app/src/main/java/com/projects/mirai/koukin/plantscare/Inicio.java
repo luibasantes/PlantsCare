@@ -1,5 +1,6 @@
 package com.projects.mirai.koukin.plantscare;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +32,15 @@ public class Inicio extends AppCompatActivity {
 
                 }
             }
-            Intent i=new Intent(getBaseContext(),MenuPrincipal.class);
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+            SharedPreferences.Editor editor = pref.edit();
+            boolean log = pref.getBoolean("claveCorrecta", false); // getting boolean
+            Intent i;
+            if(log){
+                i=new Intent(getBaseContext(),MenuPrincipal.class);
+            }else {
+                i = new Intent(getBaseContext(), login.class);
+            }
             startActivity(i);
             //Inicializar actividad Menu
             finish();
