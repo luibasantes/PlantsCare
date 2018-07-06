@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:gravity="center_horizontal"
-    tools:context=".Inicio">
+    tools:context=".Principales.Inicio">
 
     <pl.droidsonroids.gif.GifTextView
         android:layout_width="match_parent"

@@ -1,10 +1,12 @@
-package com.projects.mirai.koukin.plantscare;
+package com.projects.mirai.koukin.plantscare.Principales;
 
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.content.Intent;
+
+import com.projects.mirai.koukin.plantscare.R;
 
 public class Inicio extends AppCompatActivity {
 

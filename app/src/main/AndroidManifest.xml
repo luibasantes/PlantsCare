@@ -13,15 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Inicio">
+        <activity android:name=".Principales.Inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuPrincipal" />
-        <activity android:name=".login"></activity>
+        <activity android:name=".Principales.MenuPrincipal" />
+        <activity android:name=".Principales.login"></activity>
     </application>
 
 </manifest>
