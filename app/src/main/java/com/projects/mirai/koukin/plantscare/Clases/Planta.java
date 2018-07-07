@@ -5,8 +5,8 @@ import java.util.Date;
 public class Planta {
     private String nombre;
     private boolean ventilador;
-    private float temperatura;
-    private float humedad;
+    private double temperatura;
+    private double humedad;
     private String hora;
     private String fecha;
 
@@ -37,19 +37,19 @@ public class Planta {
         this.ventilador = ventilador;
     }
 
-    public float getTemperatura() {
+    public double getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(float temperatura) {
+    public void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
     }
 
-    public float getHumedad() {
+    public double getHumedad() {
         return humedad;
     }
 
-    public void setHumedad(float humedad) {
+    public void setHumedad(double humedad) {
         this.humedad = humedad;
     }
 
