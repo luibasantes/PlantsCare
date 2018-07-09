@@ -31,31 +31,7 @@ public class RestService  extends Application{
 
 
 
-    public void  getAllPlantas(final Context context){
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                wsrest + uriAll,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("Rest Response:",response.toString());
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response:",error.toString());
-                    }
-                }
-        );
-
-
-        requestQueue.add(objectRequest);
-    }
 
 }
 

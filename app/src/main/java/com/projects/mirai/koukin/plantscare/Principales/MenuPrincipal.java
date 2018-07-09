@@ -2,6 +2,7 @@ package com.projects.mirai.koukin.plantscare.Principales;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,15 @@ public class MenuPrincipal extends AppCompatActivity {
         TextView txt_humedad =findViewById(R.id.txt_hum);
         TextView txt_hora =findViewById(R.id.txt_hora);
         TextView txt_fecha =findViewById(R.id.txt_fecha);
+
+        Button btn_estadisticas = findViewById(R.id.btn_stad);
+        btn_estadisticas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getBaseContext(),Estadisticas.class);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -132,7 +143,7 @@ public class MenuPrincipal extends AppCompatActivity {
                             fecha.formatearFecha(response.getString("fecha"));
 
                             if(txt_fecha.getText().equals(fecha.getFechaString()) && txt_hora.getText().equals(fecha.getHoraCompletaString())){
-                                buildDialog(MenuPrincipal.this,"Servidor","Ya se encuentra actualizada al informacion").show();
+                                buildDialog(MenuPrincipal.this,"Servidor","Ya se encuentra actualizada la informacion").show();
                             }else{
                                 txt_temperatura.setText(""+response.getDouble("temperatura"));
                                 txt_humedad.setText(response.getDouble("humedad")+"");

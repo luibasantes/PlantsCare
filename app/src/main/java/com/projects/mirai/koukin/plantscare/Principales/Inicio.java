@@ -20,7 +20,7 @@ public class Inicio extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         Thread thread = new Thread() {
         public void run() {
-            while (pStatus < 500) {
+            while (pStatus < 350) {
                 pStatus += 1;
                 handler.post(new Runnable() {
                     @Override

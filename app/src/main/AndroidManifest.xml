@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".Principales.Inicio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Principales.MenuPrincipal" />
-        <activity android:name=".Principales.login"></activity>
+        <activity android:name=".Principales.login" />
+        <activity android:name=".Principales.Estadisticas"></activity>
     </application>
 
 </manifest>
