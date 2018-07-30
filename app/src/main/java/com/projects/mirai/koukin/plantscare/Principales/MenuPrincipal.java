@@ -3,6 +3,8 @@ package com.projects.mirai.koukin.plantscare.Principales;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +37,7 @@ public class MenuPrincipal extends AppCompatActivity {
     private final String wsrest="http://luibasantes.pythonanywhere.com/api/";
     private final String uriAll="plantas/";
     private final String uriLast="plantas/last/";
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = findViewById(R.id.btn_float_sync);
+        fab = findViewById(R.id.btn_float_sync);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +118,10 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
     public void  getLastPlanta(Context context){
+        //Gray #c5c8cc
+        //holo_green_dark #ff669900
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#c5c8cc")));
+        fab.setEnabled(false);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         final TextView txt_temperatura =findViewById(R.id.txt_temp);
         final TextView txt_humedad =findViewById(R.id.txt_hum);
@@ -150,10 +157,15 @@ public class MenuPrincipal extends AppCompatActivity {
                                 txt_hora.setText(fecha.getHoraCompletaString());
                                 txt_fecha.setText(fecha.getFechaString());
                                 Toast.makeText(MenuPrincipal.this,"Actualizado", Toast.LENGTH_SHORT).show();
+
                             }
+                            fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
+                            fab.setEnabled(true);
 
                         }catch(Exception e){
                             System.out.println("Something went wrong."+e);
+                            fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
+                            fab.setEnabled(true);
                         }
 
                     }
@@ -162,6 +174,8 @@ public class MenuPrincipal extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Rest Response BAD:",error.toString());
+                        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
+                        fab.setEnabled(true);
 
                     }
                 }
