@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:background="@android:color/holo_green_dark"
             android:padding="5dp"
-            android:text="Plants Care"
+            android:text="@string/app_title"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -227,5 +227,24 @@
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="italic" />
+
+    <LinearLayout
+        android:id="@+id/mLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/mProgressItem"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/darker_gray"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 </RelativeLayout>

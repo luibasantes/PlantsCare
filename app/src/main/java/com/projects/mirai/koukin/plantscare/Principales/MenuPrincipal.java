@@ -1,5 +1,8 @@
 package com.projects.mirai.koukin.plantscare.Principales;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +10,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.projects.mirai.koukin.plantscare.Clases.DateServer;
 import com.projects.mirai.koukin.plantscare.Clases.Planta;
 import com.projects.mirai.koukin.plantscare.Clases.RestService;
+import com.projects.mirai.koukin.plantscare.EstadisticaActivity;
 import com.projects.mirai.koukin.plantscare.R;
 
 import org.json.JSONArray;
@@ -38,6 +44,11 @@ public class MenuPrincipal extends AppCompatActivity {
     private final String uriAll="plantas/";
     private final String uriLast="plantas/last/";
     private FloatingActionButton fab;
+
+    private View mProgressItem;
+    private LinearLayout mLoadingView;
+
+    Button btn_estadisticas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +64,18 @@ public class MenuPrincipal extends AppCompatActivity {
         TextView txt_hora =findViewById(R.id.txt_hora);
         TextView txt_fecha =findViewById(R.id.txt_fecha);
 
-        Button btn_estadisticas = findViewById(R.id.btn_stad);
+
+
+        mProgressItem = findViewById(R.id.mProgressItem);
+        mLoadingView = (LinearLayout) findViewById(R.id.mLoadingView);
+
+
+        btn_estadisticas = findViewById(R.id.btn_stad);
         btn_estadisticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getBaseContext(),Estadisticas.class);
+                //Intent i=new Intent(getBaseContext(),Estadisticas.class);
+                Intent i=new Intent(getBaseContext(),EstadisticaActivity.class);
                 startActivity(i);
             }
         });
@@ -122,6 +140,8 @@ public class MenuPrincipal extends AppCompatActivity {
         //holo_green_dark #ff669900
         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#c5c8cc")));
         fab.setEnabled(false);
+        showProgress(true);
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         final TextView txt_temperatura =findViewById(R.id.txt_temp);
         final TextView txt_humedad =findViewById(R.id.txt_hum);
@@ -161,11 +181,14 @@ public class MenuPrincipal extends AppCompatActivity {
                             }
                             fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
                             fab.setEnabled(true);
+                            showProgress(false);
 
                         }catch(Exception e){
                             System.out.println("Something went wrong."+e);
+                            Toast.makeText(MenuPrincipal.this,"No se pudo actualizar", Toast.LENGTH_SHORT).show();
                             fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
-                            fab.setEnabled(true);
+
+                            showProgress(false);
                         }
 
                     }
@@ -174,13 +197,57 @@ public class MenuPrincipal extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Rest Response BAD:",error.toString());
+                        Toast.makeText(MenuPrincipal.this,"No se pudo actualizar", Toast.LENGTH_SHORT).show();
                         fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff669900")));
                         fab.setEnabled(true);
+                        showProgress(false);
 
                     }
                 }
         );
         requestQueue.add(objectRequest);
+    }
+
+
+    /**
+     * Shows the progress UI and hides the login form.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            mLoadingView.setVisibility(show ? View.VISIBLE : View.GONE);
+            fab.setEnabled(!show);
+            btn_estadisticas.setEnabled(!show);
+
+            //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            /*mLoginFormView.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });*/
+            mLoadingView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressItem.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressItem.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressItem.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            fab.setEnabled(!show);
+            btn_estadisticas.setEnabled(!show);
+            mLoadingView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressItem.setVisibility(show ? View.VISIBLE : View.GONE);
+            //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 

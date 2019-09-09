@@ -20,9 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Principales.MenuPrincipal" />
+        <activity
+            android:name=".Principales.MenuPrincipal"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".Principales.login" />
-        <activity android:name=".Principales.Estadisticas"></activity>
+        <activity
+            android:name=".Principales.Estadisticas"
+            />
+        <activity
+            android:name=".EstadisticaActivity"
+            android:screenOrientation="landscape"
+
+            />
     </application>
 
 </manifest>
